@@ -48,7 +48,7 @@ label = tk.Label(root, text="Выберите программу для запу
 label.pack(pady=20)
 
 # Кнопки для запуска программ
-button1 = tk.Button(root, text="Преобразование кривой в ломанную", command=lambda: run_program("КриваяВломанную.py"), width=40, height=2)
+button1 = tk.Button(root, text="Преобразование кривой в ломанную", command=lambda: run_program("ApproximateCurve.py"), width=40, height=2)
 button1.pack(pady=10)
 
 button2 = tk.Button(root, text="Объединение кривых", command=lambda: run_program("Трикривые.py"), width=40, height=2)

@@ -48,7 +48,7 @@ def load_curve():
     if file_path:
         df = pd.read_csv(file_path)
 
-        if 'approx_strain_rel' in df.columns and 'approx_stress_MPa' in df.columns:
+        if 'strain' in df.columns and 'stress' in df.columns:
             # Сохранение данных и имени файла
             curves_data.append(df)
             file_names.append(file_path.split('/')[-1])
@@ -57,9 +57,9 @@ def load_curve():
             curve_listbox.insert(END, file_names[-1])
 
             # Отображение графика сразу
-            plt.plot(df['approx_strain_rel'], df['approx_stress_MPa'], label=file_names[-1])
-            plt.xlabel('approx_strain_rel')
-            plt.ylabel('approx_stress_MPa')
+            plt.plot(df['strain'], df['stress'], label=file_names[-1])
+            plt.xlabel('strain, mm/mm')
+            plt.ylabel('stress, MPa')
             plt.legend()
             plt.grid(True)
             plt.draw()
@@ -78,9 +78,9 @@ def delete_curve():
         # Перерисовка графика с оставшимися кривыми
         plt.cla()
         for i, df in enumerate(curves_data):
-            plt.plot(df['approx_strain_rel'], df['approx_stress_MPa'], label=file_names[i])
-        plt.xlabel('approx_strain_rel')
-        plt.ylabel('approx_stress_MPa')
+            plt.plot(df['strain'], df['stress'], label=file_names[i])
+        plt.xlabel('strain, mm/mm')
+        plt.ylabel('stress, MPa')
         plt.legend()
         plt.grid(True)
         plt.draw()
@@ -95,8 +95,8 @@ def save_to_origin():
 
         for i, df in enumerate(curves_data):
             sheet = book.add_sheet(file_names[i])
-            sheet.from_list(0, df['approx_strain_rel'].tolist(), 'approx_strain_rel')
-            sheet.from_list(1, df['approx_stress_MPa'].tolist(), 'approx_stress_MPa')
+            sheet.from_list(0, df['strain'].tolist(), 'strain_rel')
+            sheet.from_list(1, df['stress'].tolist(), 'approx_stress_MPa')
             sheet.plotxy(0, 1, template='line')
 
         save_path = filedialog.asksaveasfilename(defaultextension='.opj', filetypes=[("Origin Project", "*.opj")])
@@ -120,7 +120,7 @@ root = Tk()
 root.title("Чтение, удаление и сохранение кривых")
 
 # Кнопка загрузки
-button_load = Button(root, text="Загрузить кривую", command=load_curve)
+button_load = Button(root, text="Load Curve", command=load_curve)
 button_load.pack(pady=5)
 
 # Список для отображения загруженных файлов
