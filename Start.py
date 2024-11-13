@@ -23,7 +23,7 @@
 
 import tkinter as tk
 import subprocess
-import os
+#import os
 
 # Функция для запуска внешнего Python скрипта
 def run_program(file_name):
